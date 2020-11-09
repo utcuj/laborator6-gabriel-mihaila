@@ -15,6 +15,10 @@ public class Ingrijitor {
         return "Nume ingrijitor: " + nume + "\nVarsta: " + varsta + "\nSpecializarea: " + specializare + "\n";
     }
 
+    public String hraneste(Animal animal, Preparat preparat){
+        return animal.mananca(preparat);
+    }
+
     public String getNume() {
         return nume;
     }

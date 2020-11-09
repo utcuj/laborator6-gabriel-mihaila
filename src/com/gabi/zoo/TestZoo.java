@@ -8,6 +8,9 @@ public class TestZoo {
         Scanner input = new Scanner(System.in);
         String nume_zoo;
         int nr_animale;
+
+
+
         System.out.println("Dati numele la zoo: ");
         nume_zoo=input.nextLine();
         System.out.println("Dati nr de animale: ");
@@ -39,19 +42,20 @@ public class TestZoo {
 
         GradinaZoo gradinaZoo= new GradinaZoo(nume_zoo,nr_animale);
         System.out.println("Gradina zoo: " + gradinaZoo.getNume() + "\n" + "Numar animale: " + gradinaZoo.getNr_animale() + "\n");
-        Animal a1= new Panda("Marius", Color.WHITE,2,12);
-        Animal a2= new Delfin("Rino",Color.GRAY,3,10);
-        Animal a3= new Pinguin("Kovalski",Color.BLACK,5,100);
-        Animal a4= new Delfin("Darius",Color.BLUE,6,24);
-        Animal a5= new Panda("Koaala",Color.DARK_GRAY,1,10);
-        Animal a6=new Panda("Titi",Color.black,4,20);
+        Animal[] a=new Animal[6];
+        a[0]= new Panda("Marius", Color.WHITE,2,12);
+        a[1]= new Delfin("Rino",Color.GRAY,3,10);
+        a[2]= new Pinguin("Kovalski",Color.BLACK,5,100);
+        a[3]= new Delfin("Darius",Color.BLUE,6,24);
+        a[4]= new Panda("Koaala",Color.DARK_GRAY,1,10);
+        a[5]=new Panda("Titi",Color.black,4,20);
 
-        gradinaZoo.addAnimale(a1,p2);
-        gradinaZoo.addAnimale(a2,p1);
-        gradinaZoo.addAnimale(a3,p4);
-        gradinaZoo.addAnimale(a4,p3);
-        gradinaZoo.addAnimale(a5,p1);
-        gradinaZoo.addAnimale(a6,p2);
+        gradinaZoo.addAnimale(a[0],p2);
+        gradinaZoo.addAnimale(a[1],p1);
+        gradinaZoo.addAnimale(a[2],p4);
+        gradinaZoo.addAnimale(a[3],p3);
+        gradinaZoo.addAnimale(a[4],p1);
+        gradinaZoo.addAnimale(a[5],p2);
 
         int nr_pinguini, nr_delfini, nr_panda;
         nr_pinguini=gradinaZoo.nrPinguini();
@@ -63,8 +67,6 @@ public class TestZoo {
         nr_panda=gradinaZoo.nrPanda();
         System.out.println("Numarul de panda din gradina sunt: " + nr_panda + "\n");
 
-
-
         gradinaZoo.listAnimale();
 
         Panda panda1=new Panda("Dorin",Color.DARK_GRAY,6,15);
@@ -72,37 +74,58 @@ public class TestZoo {
         nr_dormite=panda1.doarme(10);
         System.out.println(panda1.getNume() + " a cumulat acum un nr de " + nr_dormite + " ore dormite\n");
 
-        Ingrijitor ingrijitor1=new Ingrijitor("Gabi",20,"panda");
-        Ingrijitor ingrijitor2=new Ingrijitor("Tudor",22,"delfini");
-        Ingrijitor ingrijitor3=new Ingrijitor("Auras",30,"pinguini");
+        Ingrijitor[] ingrijitor=new Ingrijitor[3];
+        ingrijitor[0]=new Ingrijitor("Tudor",22,"delfini");
+        ingrijitor[1]=new Ingrijitor("Auras",30,"pinguini");
+        ingrijitor[2]=new Ingrijitor("Gabi",20,"panda");
 
-        System.out.println(ingrijitor1.toString());
-        System.out.println(ingrijitor2.toString());
-        System.out.println(ingrijitor3.toString());
+        System.out.println(ingrijitor[0].toString());
+        System.out.println(ingrijitor[1].toString());
+        System.out.println(ingrijitor[2].toString());
 
-        if(ingrijitor1.getSpecializare().equals("panda"))
-            System.out.println(ingrijitor1.getNume() + " se ocupa de un numar de "+ nr_panda + " animale");
-        else
-            if(ingrijitor1.getSpecializare().equals("delfini"))
-                System.out.println(ingrijitor1.getNume() + " se ocupa de un numar de "+ nr_delfini + " animale");
+
+        for(Ingrijitor angajat: ingrijitor){
+            if(angajat.getSpecializare().equals("panda")){
+                System.out.println(angajat.getNume() + " se ocupa de un numar de "+ nr_panda + " animale");
+                for(Animal animal: a){
+                    if(animal!=null){
+                        if(animal instanceof Panda){
+                            System.out.println(angajat.getNume() + " il hraneste pe ursul " + animal.getNume() + " astfel: \n" + angajat.hraneste(animal,p2));
+                        }
+                    }
+                    else
+                        break;
+                }
+            }
             else
-                System.out.println(ingrijitor1.getNume() + " se ocupa de un numar de "+ nr_pinguini + " animale");
+            if(angajat.getSpecializare().equals("delfini")){
+                System.out.println(angajat.getNume() + " se ocupa de un numar de "+ nr_delfini + " animale");
+                for(Animal animal: a){
+                    if(animal != null){
+                        if(animal instanceof Delfin){
+                            System.out.println(angajat.getNume() + " il hraneste pe delfinul " + animal.getNume() + " astfel: \n" +  angajat.hraneste(animal,p1));
+                        }
+
+                    }
+                    else
+                        break;
+                }
+            }
+
+            else{
+                System.out.println(angajat.getNume() + " se ocupa de un numar de "+ nr_pinguini + " animale");
+                for(Animal animal: a){
+                    if(animal!=null){
+                        if(animal instanceof Pinguin)
+                            System.out.println(angajat.getNume() + " il hraneste pe pinguinul " + animal.getNume() + " astfel: \n" + angajat.hraneste(animal,p4));
+                    }
+                    else
+                        break;
+                }
+            }
+
+        }
 
 
-        if(ingrijitor2.getSpecializare().equals("panda"))
-            System.out.println(ingrijitor2.getNume() + " se ocupa de un numar de "+ nr_panda + " animale");
-        else
-        if(ingrijitor2.getSpecializare().equals("delfini"))
-            System.out.println(ingrijitor2.getNume() + " se ocupa de un numar de "+ nr_delfini + " animale");
-        else
-            System.out.println(ingrijitor2.getNume() + " se ocupa de un numar de "+ nr_pinguini + " animale");
-
-        if(ingrijitor3.getSpecializare().equals("panda"))
-            System.out.println(ingrijitor3.getNume() + " se ocupa de un numar de "+ nr_panda + " animale");
-        else
-        if(ingrijitor3.getSpecializare().equals("delfini"))
-            System.out.println(ingrijitor3.getNume() + " se ocupa de un numar de "+ nr_delfini + " animale");
-        else
-            System.out.println(ingrijitor3.getNume() + " se ocupa de un numar de "+ nr_pinguini + " animale");
     }
 }

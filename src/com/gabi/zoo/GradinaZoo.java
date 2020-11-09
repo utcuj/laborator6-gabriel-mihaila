@@ -4,17 +4,16 @@ public class GradinaZoo {
     private String nume;
     private int nr_animale;
     private Preparat preparat;
-    private Animal[] animaleZoo = new Animal[10];
+    private Animal[] animaleZoo;
     private int i=0;
 
     public GradinaZoo(String nume, int nr_animale){
         this.nume=nume;
         this.nr_animale=nr_animale;
+        this.animaleZoo= new Animal[nr_animale];
     }
 
-    public GradinaZoo(){
-        this("Neidentificat",0);
-    }
+
 
     public void addAnimale(Animal animal, Preparat preparat){
         animaleZoo[i]=animal;
